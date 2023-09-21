@@ -1,0 +1,10 @@
+C:\Users\andry\OneDrive\Documentos\Visual Studio 2022\Proyectos_CS\ProcesoCRUD\ProcesoCRUD\bin\Debug\ProcesoCRUD.exe.config
+C:\Users\andry\OneDrive\Documentos\Visual Studio 2022\Proyectos_CS\ProcesoCRUD\ProcesoCRUD\bin\Debug\ProcesoCRUD.exe
+C:\Users\andry\OneDrive\Documentos\Visual Studio 2022\Proyectos_CS\ProcesoCRUD\ProcesoCRUD\bin\Debug\ProcesoCRUD.pdb
+C:\Users\andry\OneDrive\Documentos\Visual Studio 2022\Proyectos_CS\ProcesoCRUD\ProcesoCRUD\obj\Debug\ProcesoCRUD.csproj.AssemblyReference.cache
+C:\Users\andry\OneDrive\Documentos\Visual Studio 2022\Proyectos_CS\ProcesoCRUD\ProcesoCRUD\obj\Debug\ProcesoCRUD.Frm_Productos.resources
+C:\Users\andry\OneDrive\Documentos\Visual Studio 2022\Proyectos_CS\ProcesoCRUD\ProcesoCRUD\obj\Debug\ProcesoCRUD.Properties.Resources.resources
+C:\Users\andry\OneDrive\Documentos\Visual Studio 2022\Proyectos_CS\ProcesoCRUD\ProcesoCRUD\obj\Debug\ProcesoCRUD.csproj.GenerateResource.cache
+C:\Users\andry\OneDrive\Documentos\Visual Studio 2022\Proyectos_CS\ProcesoCRUD\ProcesoCRUD\obj\Debug\ProcesoCRUD.csproj.CoreCompileInputs.cache
+C:\Users\andry\OneDrive\Documentos\Visual Studio 2022\Proyectos_CS\ProcesoCRUD\ProcesoCRUD\obj\Debug\ProcesoCRUD.exe
+C:\Users\andry\OneDrive\Documentos\Visual Studio 2022\Proyectos_CS\ProcesoCRUD\ProcesoCRUD\obj\Debug\ProcesoCRUD.pdb
