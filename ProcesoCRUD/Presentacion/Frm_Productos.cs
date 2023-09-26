@@ -1,4 +1,5 @@
 ﻿using ProcesoCRUD.Datos;
+using ProcesoCRUD.Entidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,11 @@ namespace ProcesoCRUD
         {
             InitializeComponent();
         }
+
+        #region "MIS VARIABLES"
+        int nEstadoGuarda = 0;
+        int vCodigoProducto = 0;
+        #endregion
 
         #region "MIS METODOS"
         private void LimpiaTexto()
@@ -101,10 +107,33 @@ namespace ProcesoCRUD
             dgvListado_Productos.DataSource = Datos.Listado_Productos(cTexto);
             this.FormatoProducto();
         }
+
+        private void SeleccionaItemProducto()
+        {
+            if (string.IsNullOrEmpty(Convert.ToString(dgvListado_Productos.CurrentRow.Cells["Codigo_Producto"].Value)))
+            {
+                MessageBox.Show("Seleccione un producto.",
+                                "Aviso de sistema",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                this.vCodigoProducto = Convert.ToInt32(dgvListado_Productos.CurrentRow.Cells["Codigo_Producto"].Value);
+
+                txtDescripcion_Producto.Text = Convert.ToString(dgvListado_Productos.CurrentRow.Cells["Descripcion_Producto"].Value);
+                txtMarca_Producto.Text = Convert.ToString(dgvListado_Productos.CurrentRow.Cells["Marca_Producto"].Value);
+                cmbMedidas.Text = Convert.ToString(dgvListado_Productos.CurrentRow.Cells["Descripcion_Medida"].Value);
+                cmbCategoria.Text = Convert.ToString(dgvListado_Productos.CurrentRow.Cells["Descripcion_Categoria"].Value);
+                txtStock_Actual.Text = Convert.ToString(dgvListado_Productos.CurrentRow.Cells["Stock_Actual"].Value);
+            }
+        }
         #endregion
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
+            this.nEstadoGuarda = 1;  //Nuevo registro
+            this.vCodigoProducto = 0;
             this.LimpiaTexto();
             this.EstadoTexto(true);
             this.EstadoBotones(false);
@@ -123,6 +152,105 @@ namespace ProcesoCRUD
             this.LimpiaTexto();
             this.EstadoTexto(false);
             this.EstadoBotones(true);
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            //Validar que los datos esten correctos
+            if (txtDescripcion_Producto.Text == string.Empty || txtMarca_Producto.Text == string.Empty ||
+                cmbMedidas.Text == string.Empty || cmbCategoria.Text == string.Empty || 
+                txtStock_Actual.Text == string.Empty)
+            {
+                MessageBox.Show("Debe ingresar todos los datos requeridos (*)",
+                                "Aviso del sistema",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation);
+            }
+            else //Procedo a guardar la informacion
+            {
+                string respuesta = "";
+                
+                E_Productos oProp = new E_Productos();
+                oProp.Codigo_Producto = this.vCodigoProducto;
+
+                oProp.Descripcion_Producto = txtDescripcion_Producto.Text;
+                oProp.Marca_Producto = txtMarca_Producto.Text;
+                oProp.Codigo_Medida = Convert.ToInt32(cmbMedidas.SelectedValue);
+                oProp.Codigo_Categoria = Convert.ToInt32(cmbCategoria.SelectedValue);
+                oProp.Stock_Actual = Convert.ToDecimal(txtStock_Actual.Text);
+
+                D_Productos Datos = new D_Productos();
+                respuesta = Datos.Guardar_Producto(this.nEstadoGuarda, oProp);
+
+                if(respuesta == "OK")
+                {
+                    this.ListadoProducto("%");
+                    MessageBox.Show("Los datos han sido guardados correctamente",
+                                    "Aviso de sistema",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+
+                    this.vCodigoProducto = 0;
+                    this.LimpiaTexto();
+                    this.EstadoTexto(false);
+                    this.EstadoBotones(true);
+                }
+            }
+        }
+
+        private void dgvListado_Productos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            SeleccionaItemProducto();
+        }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            this.nEstadoGuarda = 2;  //Actualizar registro significa el estado 2
+
+            this.EstadoTexto(true);
+            this.EstadoBotones(false);
+            txtDescripcion_Producto.Select();
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            this.ListadoProducto(txtBuscar.Text);
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (dgvListado_Productos.Rows.Count <= 0 ||
+                string.IsNullOrEmpty(Convert.ToString(dgvListado_Productos.CurrentRow.Cells["Codigo_Producto"].Value)))
+             {
+                MessageBox.Show("No se tiene informacion para eliminar",
+                                "Aviso del sistema",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                string respuesta = "";
+
+                D_Productos Datos = new D_Productos();
+                respuesta = Datos.Activo_Producto(this.vCodigoProducto, false);
+
+                if (respuesta == "OK")
+                {
+                    this.ListadoProducto("%");
+                    this.LimpiaTexto();
+                    vCodigoProducto = 0;
+
+                    MessageBox.Show("El registro seleccionado ha sido eliminado",
+                                    "Aviso del sistema",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                }
+            }
         }
     }
 }

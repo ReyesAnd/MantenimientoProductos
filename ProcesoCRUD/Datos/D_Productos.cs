@@ -79,7 +79,7 @@ namespace ProcesoCRUD.Datos
             try
             {
                 SqlConnection = Conexion.getInstancia().CrearConexion();
-                SqlCommand Comando = new SqlCommand("USP_Activo_Producto", SqlConnection);
+                SqlCommand Comando = new SqlCommand("Activo_Producto", SqlConnection);
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@nCodigo_Producto", SqlDbType.Int).Value = nCodigo_Producto;
                 Comando.Parameters.Add("@bEstado_Activo", SqlDbType.Bit).Value = bEstado_Activo;
