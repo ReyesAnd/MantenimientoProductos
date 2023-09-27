@@ -1,5 +1,6 @@
 ﻿using ProcesoCRUD.Datos;
 using ProcesoCRUD.Entidades;
+using ProcesoCRUD.Presentacion.Reportes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -251,6 +252,13 @@ namespace ProcesoCRUD
                                     MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private void btnReporte_Click(object sender, EventArgs e)
+        {
+            Frm_Reporte_Listado_Producto oFrm_Reporte = new Frm_Reporte_Listado_Producto();
+            oFrm_Reporte.txt_01.Text = txtBuscar.Text;
+            oFrm_Reporte.ShowDialog();
         }
     }
 }
